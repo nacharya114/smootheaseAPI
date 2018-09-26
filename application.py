@@ -2,7 +2,7 @@
 
 import os
 import json
-# import mysql.connector
+import mysql.connector
 
 from flask import Flask
 application = app = Flask(__name__)
@@ -30,14 +30,17 @@ def query_db(query, args=(), one=False):
 @app.route("/")
 def hello():
 
-    # get_all_sql = "SELECT * FROM Recipes;"
-
-    # result = query_db(get_all_sql, (), False)
-
-    # json_out = json.dumps(result)
-
     return "Hello World."
 
+@app.route("/all")
+def get_all():
+    
+    get_all_sql = "SELECT * FROM Recipes;"
+
+    result = query_db(get_all_sql, (), False)
+
+    json_out = json.dumps(result)
+    return json_out
 
 
 
