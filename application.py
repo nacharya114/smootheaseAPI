@@ -5,7 +5,7 @@ import json
 import mysql.connector
 
 from flask import Flask
-application = app = Flask(__name__)
+application = Flask(__name__)
 
 # Connect to the database
 mydb = mysql.connector.connect(host=os.environ["AWS_HOST"],
@@ -27,12 +27,12 @@ def query_db(query, args=(), one=False):
 
 
 
-@app.route("/")
+@application.route("/")
 def hello():
 
     return "Hello World."
 
-@app.route("/all")
+@application.route("/all")
 def get_all():
     
     get_all_sql = "SELECT * FROM Recipes;"
@@ -46,4 +46,5 @@ def get_all():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    application.debug = True
+    application.run()
