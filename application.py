@@ -5,14 +5,14 @@ import json
 # import mysql.connector
 
 from flask import Flask
-app = Flask(__name__)
+application = app = Flask(__name__)
 
 # Connect to the database
-# mydb = mysql.connector.connect(host=os.environ["AWS_HOST"],
-#                             user=os.environ["AWS_USERNAME"],
-#                             password=os.environ["AWS_PASSWORD"],
-#                             db="smoothiesdb",
-#                             )
+mydb = mysql.connector.connect(host=os.environ["AWS_HOST"],
+                            user=os.environ["AWS_USERNAME"],
+                            password=os.environ["AWS_PASSWORD"],
+                            db="smoothiesdb",
+                            )
 
 
 
@@ -37,6 +37,9 @@ def hello():
     # json_out = json.dumps(result)
 
     return "Hello World."
+
+
+
 
 
 if __name__ == '__main__':
