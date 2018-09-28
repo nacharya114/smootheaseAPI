@@ -3,6 +3,7 @@
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+.ebextensions/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
