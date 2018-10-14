@@ -29,6 +29,7 @@ def get_all():
 @application.route("/signup", methods=["GET","POST"])
 def signup():
     if request.method == "POST":
+        print(request.form)
         result = {
             "username": request.form["username"],
             "status": 200
