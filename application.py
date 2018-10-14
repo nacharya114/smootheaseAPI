@@ -26,7 +26,7 @@ def get_all():
     json_out = json.dumps(result)
     return json_out
 
-@application.route("/signup", methods=["POST"])
+@application.route("/signup", methods=["GET","POST"])
 def signup():
     if request.method == "POST":
         result = {
