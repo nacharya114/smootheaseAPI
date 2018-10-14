@@ -29,7 +29,11 @@ def get_all():
 @application.route("/signup", methods=["GET","POST"])
 def signup():
     if request.method == "POST":
+        print("Request form info: ")
         print(request.form)
+        req = request.get_json()
+        print("JSON form:")
+        print(req)
         result = {
             "username": request.form["username"],
             "status": 200
