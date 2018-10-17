@@ -26,4 +26,4 @@ You're now ready to locally test this server!
 
 Since this project uses Heroku, you should have the Heroku CLI installed and be logged into your account: [Follow steps here.](https://devcenter.heroku.com/articles/heroku-cli) 
 
-If you want a live feed of the logs for this app, use the command: ```heroku logs --tails -a enigmatic-shelf-77123```
+If you want a live feed of the logs for this app, use the command: ```heroku logs --tail -a enigmatic-shelf-77123```

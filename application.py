@@ -42,6 +42,15 @@ def signup():
     else:
         return "Sign up page."
 
+@application.route("/ingredients", methods=["POST"])
+def ingredientSearch():
+    if request.method == "POST":
+        print("Ingredient list received:")
+        print(request.form.ingredients)
+        results = {
+            "statusCode":200
+        }
+        return json.dumps(results)
 
 
 

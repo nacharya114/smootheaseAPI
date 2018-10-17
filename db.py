@@ -18,3 +18,8 @@ def query_db(query, args=(), one=False):
                for i, value in enumerate(row)) for row in cur.fetchall()]
     cur.close()
     return (r[0] if r else None) if one else r
+
+
+
+def getRecipeByIngredient(ingredients):
+    pass
