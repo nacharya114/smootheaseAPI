@@ -46,7 +46,7 @@ def signup():
 def ingredientSearch():
     if request.method == "POST":
         print("Ingredient list received:")
-        print(request.form.ingredients)
+        print(request.form)
         results = {
             "statusCode":200
         }
