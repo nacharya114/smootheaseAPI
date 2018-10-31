@@ -30,7 +30,7 @@ def get_all():
 def signup():
     if request.method == "POST":
         print("Request form info: ")
-        print(request.form)
+        print(request.form["ingredients"])
         req = request.get_json()
         print("JSON form:")
         print(req)
@@ -48,7 +48,8 @@ def ingredientSearch():
         print("Ingredient list received:")
         print(request.form)
         results = {
-            "statusCode":200
+            "statusCode":200,
+
         }
         return json.dumps(results)
 
