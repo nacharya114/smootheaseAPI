@@ -3,7 +3,7 @@
 import os
 import json
 
-from db import query_db
+from db import query_db, getRecipeByIngredient
 
 from flask import Flask
 from flask import request
@@ -22,6 +22,7 @@ def get_all():
     get_all_sql = "SELECT * FROM Recipes;"
 
     result = query_db(get_all_sql, (), False)
+    print("Fetching all.")
 
     json_out = json.dumps(result)
     return json_out
@@ -46,7 +47,11 @@ def signup():
 def ingredientSearch():
     if request.method == "POST":
         print("Ingredient list received:")
-        print(request.form["ingredients"])
+        ingredients = json.loads(request.form["ingredients"])
+        
+        ingredients = [i.lower() for i in ingredients]
+        print(getRecipeByIngredient(ingredients))
+        # print(ingredients)
         results = {
             "statusCode":200,
         }

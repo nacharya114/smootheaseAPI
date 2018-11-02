@@ -1,7 +1,7 @@
 import os
 import mysql.connector
 
-
+from utils import *
 
 # Connect to the database
 mydb = mysql.connector.connect(host=os.environ["AWS_HOST"],
@@ -22,4 +22,13 @@ def query_db(query, args=(), one=False):
 
 
 def getRecipeByIngredient(ingredients):
-    pass
+    ing_id_query = fetchIngredients(ingredients)
+    results = query_db(ing_id_query)
+    ing_ids = [i["ingredient_id"] for i in results]
+
+    recipe_fetch_sql = fetchRecipes(ing_ids)
+    results = query_db(recipe_fetch_sql)
+
+    return results
+
+    # return ing_ids
