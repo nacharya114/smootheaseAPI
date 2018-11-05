@@ -50,10 +50,11 @@ def ingredientSearch():
         ingredients = json.loads(request.form["ingredients"])
         
         ingredients = [i.lower() for i in ingredients]
-        print(getRecipeByIngredient(ingredients))
+        recipes = getRecipeByIngredient(ingredients))
         # print(ingredients)
         results = {
             "statusCode":200,
+            "recipes": recipes
         }
         return json.dumps(results)
 
