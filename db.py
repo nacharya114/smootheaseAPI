@@ -32,3 +32,8 @@ def getRecipeByIngredient(ingredients):
     return results
 
     # return ing_ids
+
+def getRecipeByID(id):
+    query_sql = f"SELECT * FROM Recipes WHERE recipe_id={id}"
+
+    return query_db(query_sql,one=True)

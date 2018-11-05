@@ -3,7 +3,7 @@
 import os
 import json
 
-from db import query_db, getRecipeByIngredient
+from db import query_db, getRecipeByIngredient, getRecipeByID
 
 from flask import Flask
 from flask import request
@@ -57,6 +57,17 @@ def ingredientSearch():
             "recipes": recipes
         }
         return json.dumps(results)
+
+@application.route("/recipe/<int:recipe_id>")
+def recpieById(recipe_id):
+    if request.method == "GET":
+        recipe = getRecipeByID(recipe_id)
+        result = {
+            "statusCode": 200,
+            "recipe": recipe
+        }
+        return json.dumps(result)
+
 
 
 
