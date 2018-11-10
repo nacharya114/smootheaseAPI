@@ -48,7 +48,11 @@ def ingredientSearch():
     if request.method == "POST":
         print("Ingredient list received:")
         print(request.form)
-        ingredients = json.loads(request.form["ingredients"])
+        #HARDCODING JSON DATA FIX
+        data = request.form["ingredients"]
+        data = "{" + data[1:-1] + "}"
+
+        ingredients = json.loads(data)
         
         print(ingredients)
 
