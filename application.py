@@ -47,6 +47,7 @@ def signup():
 def ingredientSearch():
     if request.method == "POST":
         print("Ingredient list received:")
+        print(request.form)
         ingredients = json.loads(request.form["ingredients"])
         
         print(ingredients)
