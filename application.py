@@ -49,12 +49,18 @@ def ingredientSearch():
         print("Ingredient list received:")
         ingredients = json.loads(request.form["ingredients"])
         
-        ingredients = [i.lower() for i in ingredients]
-        recipes = getRecipeByIngredient(ingredients)
+        liked = [fruit for fruit, val in ingredients.items() if (val == 1)]
+        restricted = [fruit for fruit, val in ingredients.items() if val == -1]
+        wanted_recipes = getRecipeByIngredient(liked)
+        restricted_recipes = getRecipeByIngredient(restricted)
+        for recipe in restricted_recipes:
+            if recipe in wanted_recipes:
+                wanted_recipes.remove(recipe)
+
         # print(ingredients)
         results = {
             "statusCode":200,
-            "recipes": recipes
+            "recipes": wanted_recipes
         }
         return json.dumps(results)
 

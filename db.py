@@ -21,12 +21,13 @@ def query_db(query, args=(), one=False):
 
 
 
-def getRecipeByIngredient(ingredients):
-    ing_id_query = fetchIngredients(ingredients)
+def getRecipeByIngredient(wanted):
+    ing_id_query = fetchIngredients(wanted)
     results = query_db(ing_id_query)
-    ing_ids = [i["ingredient_id"] for i in results]
+    wanted_ids = [i["ingredient_id"] for i in results]
 
-    recipe_fetch_sql = fetchRecipes(ing_ids)
+
+    recipe_fetch_sql = fetchRecipes(wanted_ids)
     results = query_db(recipe_fetch_sql)
 
     return results
