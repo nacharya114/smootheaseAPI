@@ -23,6 +23,7 @@ def query_db(query, args=(), one=False):
 
 def getRecipeByIngredient(wanted):
     ing_id_query = fetchIngredients(wanted)
+    print(ing_id_query)
     results = query_db(ing_id_query)
     wanted_ids = [i["ingredient_id"] for i in results]
 

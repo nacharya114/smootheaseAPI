@@ -58,8 +58,12 @@ def ingredientSearch():
 
         liked = [fruit for fruit, val in ingredients.items() if (val == 1)]
         restricted = [fruit for fruit, val in ingredients.items() if val == -1]
-        wanted_recipes = getRecipeByIngredient(liked)
-        restricted_recipes = getRecipeByIngredient(restricted)
+        wanted_recipes = []
+        if len(liked):
+            wanted_recipes =  getRecipeByIngredient(liked)
+        restricted_recipes = []
+        if len(restricted):
+            restricted_recipes = getRecipeByIngredient(restricted)
         for recipe in restricted_recipes:
             if recipe in wanted_recipes:
                 wanted_recipes.remove(recipe)
@@ -67,7 +71,8 @@ def ingredientSearch():
         # print(ingredients)
         results = {
             "statusCode":200,
-            "recipes": wanted_recipes
+            "recipes": wanted_recipes,
+            "num_recipes": len(wanted_recipes)
         }
         return json.dumps(results)
 

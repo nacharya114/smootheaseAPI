@@ -1,10 +1,12 @@
 
 def fetchIngredients(ingredients):
-    query = f"""SELECT * FROM Ingredient WHERE ingredient_name in ('{"','".join(ingredients)}');"""
+    fixed = [i.lower() for i in ingredients]
+    print(fixed)
+    query = f"""SELECT * FROM Ingredient WHERE ingredient_name in ('{"','".join(fixed)}');"""
     return query
 
 def fetchRecipes(wanted):
-    wanted_str = [str(i) for i in wanted]
+    wanted_str = [str(i).lower() for i in wanted]
     query = f"""SELECT DISTINCT r.recipe_id, r.title 
                 FROM 
                 Recipes r
