@@ -5,6 +5,8 @@ import json
 
 from db import query_db, getRecipeByIngredient, getRecipeByID
 
+from auth import *
+
 from flask import Flask
 from flask import request
 application = Flask(__name__)
@@ -33,8 +35,9 @@ def signup():
         print("Request form info: ")
         print(request.form)
         req = request.get_json()
-        print("JSON form:")
         print(req)
+        idToken = request.form["id"]
+        realID = getIDfromGoogle(idToken)
         result = {
             "username": request.form["username"],
             "status": 200
