@@ -3,7 +3,7 @@
 import os
 import json
 
-from db import query_db, getRecipeByIngredient, getRecipeByID
+from db import query_db, getRecipeByIngredient, getRecipeByID,getIngredientsByRecipe
 
 from auth import *
 
@@ -37,7 +37,7 @@ def signup():
         req = request.get_json()
         print(req)
         idToken = request.form["id"]
-        realID = getIDfromGoogle(idToken)
+        # realID = getIDfromGoogle(idToken)
         result = {
             "username": request.form["username"],
             "status": 200
@@ -50,9 +50,14 @@ def signup():
 def ingredientSearch():
     if request.method == "POST":
         print("Ingredient list received:")
-        print(request.form)
         #HARDCODING JSON DATA FIX
         data = request.form["ingredients"]
+        weightGoals = None
+        dietary = None
+        if "weightGoals" in request.form.keys():
+            weightGoals = request.form["weightGoals"]
+        if "dietaryRestrictions" in request.form.keys():
+            dietary = request.form["dietaryRestrictions"]
         data = "{" + data[1:-1] + "}"
 
         ingredients = json.loads(data)
@@ -71,6 +76,7 @@ def ingredientSearch():
             if recipe in wanted_recipes:
                 wanted_recipes.remove(recipe)
 
+
         # print(ingredients)
         results = {
             "statusCode":200,
@@ -80,7 +86,7 @@ def ingredientSearch():
         return json.dumps(results)
 
 @application.route("/recipe/<int:recipe_id>")
-def recpieById(recipe_id):
+def recipeById(recipe_id):
     if request.method == "GET":
         recipe = getRecipeByID(recipe_id)
         result = {
@@ -89,7 +95,29 @@ def recpieById(recipe_id):
         }
         return json.dumps(result)
 
+@application.route("/cost", methods=["POST"])
+def getSpreadsheet():
+    if request.method == "POST":
+        ids = request.form["recipes"]
+        l_ids = json.loads(ids)
+        cost_dict = {}
+        total = 0.0
+        for i in l_ids:
+            ing_costs = getIngredientsByRecipe(i)
+            for ing in ing_costs:
+                if ing["ingredient_name"] not in cost_dict.keys():
+                    cost_dict[ing["ingredient_name"]] = 0.0
+                cost_dict[ing["ingredient_name"]] += ing['quantity'] * ing['cost']
+                total += ing['quantity'] * ing['cost']
 
+        print(cost_dict)
+            # return cost_dict
+        result = {
+            "statusCode": 200,
+            "cost": cost_dict,
+            "total": total
+        }
+        return json.dumps(result)
 
 
 if __name__ == '__main__':

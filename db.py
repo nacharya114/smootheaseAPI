@@ -39,3 +39,13 @@ def getRecipeByID(id):
     query_sql = f"SELECT * FROM Recipes WHERE recipe_id={id}"
 
     return query_db(query_sql,one=True)
+
+def getIngredientsByRecipe(recipe_id):
+    query = f"""select i.ingredient_name, q.quantity, i.cost
+        from 
+            Ingredient i
+            inner join Qty_Ingredients q
+            on i.ingredient_id = q.ingredient_id
+        where q.recipe_id={recipe_id};
+    """
+    return query_db(query)
