@@ -4,6 +4,7 @@ import os
 import json
 
 from db import query_db, getRecipeByIngredient, getRecipeByID,getIngredientsByRecipe
+from utils import toDict
 
 from auth import *
 
@@ -58,9 +59,9 @@ def ingredientSearch():
             weightGoals = request.form["weightGoals"]
         if "dietaryRestrictions" in request.form.keys():
             dietary = request.form["dietaryRestrictions"]
-        data = "{" + data[1:-1] + "}"
+        ingredients = toDict(data)
 
-        ingredients = json.loads(data)
+        # ingredients = json.loads(data)
         
         print(ingredients)
 
@@ -99,7 +100,12 @@ def recipeById(recipe_id):
 def getSpreadsheet():
     if request.method == "POST":
         ids = request.form["recipes"]
-        l_ids = json.loads(ids)
+        d_ids = toDict(ids)
+        l_ids = []
+        for id, count in d_ids.items():
+            for i in range(count):
+                l_ids.append(id)
+        print(l_ids)
         cost_dict = {}
         total = 0.0
         for i in l_ids:
@@ -107,7 +113,7 @@ def getSpreadsheet():
             for ing in ing_costs:
                 if ing["ingredient_name"] not in cost_dict.keys():
                     cost_dict[ing["ingredient_name"]] = 0.0
-                cost_dict[ing["ingredient_name"]] += ing['quantity'] * ing['cost']
+                cost_dict[ing["ingredient_name"]] += ing['quantity']
                 total += ing['quantity'] * ing['cost']
 
         print(cost_dict)

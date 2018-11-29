@@ -1,3 +1,4 @@
+import json
 
 def fetchIngredients(ingredients):
     fixed = [i.lower() for i in ingredients]
@@ -22,3 +23,7 @@ def fetchRecipes(*arg, **kwarg):
                 """
     query += ";"
     return query
+
+def toDict(data):
+     dict_str = "{" + data[1:-1] + "}"
+     return json.loads(dict_str)
